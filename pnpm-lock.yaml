@@ -14,9 +14,15 @@ importers:
       '@prisma/client':
         specifier: 6.1.0
         version: 6.1.0(prisma@6.1.0)
+      dotenv:
+        specifier: ^16.4.7
+        version: 16.4.7
       hono:
         specifier: ^4.6.15
         version: 4.6.15
+      node-hono-api-chat-app:
+        specifier: 'file:'
+        version: file:(prisma@6.1.0)
     devDependencies:
       '@types/node':
         specifier: ^20.17.11
@@ -210,6 +216,10 @@ packages:
   '@types/node@20.17.11':
     resolution: {integrity: sha512-Ept5glCK35R8yeyIeYlRIZtX6SLRyqMhOFTgj5SOkMpLTdw3SEHI9fHx60xaUZ+V1aJxQJODE+7/j5ocZydYTg==}
 
+  dotenv@16.4.7:
+    resolution: {integrity: sha512-47qPchRCykZC03FhkYAhrvwU4xDBFIj1QPqaarj6mdM/hgUzfPHcpkHJOn3mJAufFeeAxAzeGsr5X0M4k6fLZQ==}
+    engines: {node: '>=12'}
+
   esbuild@0.23.1:
     resolution: {integrity: sha512-VVNz/9Sa0bs5SELtn3f7qhJCDPCF5oMEl5cO9/SSinpE9hbPVvxbd572HH5AKiP7WD8INO53GgfDDhRjkylHEg==}
     engines: {node: '>=18'}
@@ -226,6 +236,9 @@ packages:
   hono@4.6.15:
     resolution: {integrity: sha512-OiQwvAOAaI2JrABBH69z5rsctHDzFzIKJge0nYXgtzGJ0KftwLWcBXm1upJC23/omNRtnqM0gjRMbtXshPdqhQ==}
     engines: {node: '>=16.9.0'}
+
+  'node-hono-api-chat-app@file:':
+    resolution: {directory: '', type: directory}
 
   prisma@6.1.0:
     resolution: {integrity: sha512-aFI3Yi+ApUxkwCJJwyQSwpyzUX7YX3ihzuHNHOyv4GJg3X5tQsmRaJEnZ+ZyfHpMtnyahhmXVfbTZ+lS8ZtfKw==}
@@ -355,6 +368,8 @@ snapshots:
     dependencies:
       undici-types: 6.19.8
 
+  dotenv@16.4.7: {}
+
   esbuild@0.23.1:
     optionalDependencies:
       '@esbuild/aix-ppc64': 0.23.1
@@ -390,6 +405,14 @@ snapshots:
       resolve-pkg-maps: 1.0.0
 
   hono@4.6.15: {}
+
+  node-hono-api-chat-app@file:(prisma@6.1.0):
+    dependencies:
+      '@hono/node-server': 1.13.7(hono@4.6.15)
+      '@prisma/client': 6.1.0(prisma@6.1.0)
+      hono: 4.6.15
+    transitivePeerDependencies:
+      - prisma
 
   prisma@6.1.0:
     dependencies:
