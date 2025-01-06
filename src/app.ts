@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { chatRoute } from "./api/chat-app";
+import { chatRoute } from "./api/chat";
 
 const app = new Hono();
 
