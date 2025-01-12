@@ -6,35 +6,6 @@ import { errorHandlerMiddleware } from "./middlewares/error-handler";
 
 const app = new OpenAPIHono();
 
-// const getRoute = createRoute({
-//   method: "get",
-//   path: "/getMessage",
-//   summary: "Retrieve a message",
-//   description: "Retrieve the message of the users.",
-//   responses: {
-//     200: {
-//       content: {
-//         "application/json": {
-//           schema: ChatSchema,
-//         },
-//       },
-//       description: "Retrieve Message",
-//     },
-//   },
-// });
-
-// app.openapi(getRoute, (c) => {
-//   return c.json({
-//     chat_id: 1,
-//     chat_type: "PRIVATE" as "PRIVATE" | "GROUP",
-//     createdAt: new Date().toISOString(),
-//     updatedAt: new Date().toISOString(),
-//     UserChats: [],
-//     Messages: [],
-//     message: "Messages Retrieved",
-//   });
-// });
-
 app.get(
   "/",
   swaggerUI({
