@@ -1,40 +1,39 @@
 import { serve } from "@hono/node-server";
 import { swaggerUI } from "@hono/swagger-ui";
-import { createRoute, OpenAPIHono } from "@hono/zod-openapi";
-import { config } from "dotenv";
-import { ChatSchema } from "./api/schemas/chat-schema";
+import { OpenAPIHono } from "@hono/zod-openapi";
+import { routes } from "./controllers/routes";
+import { errorHandlerMiddleware } from "./middlewares/error-handler";
 
 const app = new OpenAPIHono();
-config();
 
-const getRoute = createRoute({
-  method: "get",
-  path: "/getMessage",
-  summary: "Retrieve a message",
-  description: "Retrieve the message of the users.",
-  responses: {
-    200: {
-      content: {
-        "application/json": {
-          schema: ChatSchema,
-        },
-      },
-      description: "Retrieve Message",
-    },
-  },
-});
+// const getRoute = createRoute({
+//   method: "get",
+//   path: "/getMessage",
+//   summary: "Retrieve a message",
+//   description: "Retrieve the message of the users.",
+//   responses: {
+//     200: {
+//       content: {
+//         "application/json": {
+//           schema: ChatSchema,
+//         },
+//       },
+//       description: "Retrieve Message",
+//     },
+//   },
+// });
 
-app.openapi(getRoute, (c) => {
-  return c.json({
-    chat_id: 1,
-    chat_type: "PRIVATE" as "PRIVATE" | "GROUP",
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    UserChats: [],
-    Messages: [],
-    message: "Messages Retrieved",
-  });
-});
+// app.openapi(getRoute, (c) => {
+//   return c.json({
+//     chat_id: 1,
+//     chat_type: "PRIVATE" as "PRIVATE" | "GROUP",
+//     createdAt: new Date().toISOString(),
+//     updatedAt: new Date().toISOString(),
+//     UserChats: [],
+//     Messages: [],
+//     message: "Messages Retrieved",
+//   });
+// });
 
 app.get(
   "/",
@@ -51,7 +50,11 @@ app.doc("/openapi.json", {
   openapi: "3.1.0",
 });
 
-app.route("/", app);
+app.onError(errorHandlerMiddleware);
+
+routes.forEach((route) => {
+  app.route("/", route);
+});
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 
