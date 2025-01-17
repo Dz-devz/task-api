@@ -12,9 +12,9 @@ export const taskSchema = z.object({
   status: z.nativeEnum(TaskType).openapi({
     example: TaskType.PENDING,
   }),
-  priority: z.number().openapi({
-    example: 0,
-  }),
+  // priority: z.number().openapi({
+  //   example: 0,
+  // }),
   created_at: z.union([z.coerce.date(), z.string()]).openapi({
     example: new Date().toISOString(),
   }),

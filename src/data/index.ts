@@ -1,4 +1,7 @@
+import { PrismaClient } from "@prisma/client";
 import { NotFoundError } from "../utils/errors";
+
+const prisma = new PrismaClient();
 
 let tasks = [
   {
@@ -24,12 +27,19 @@ let tasks = [
   },
 ];
 
-export function getTasksData() {
-  return tasks;
+export async function getTasksData() {
+  const allTask = await prisma.task.findMany();
+
+  return allTask;
 }
 
-export function getTaskData(id: number) {
-  const task = tasks.find((task) => task.id === id);
+export async function getTaskData(id: string) {
+  // const task = tasks.find((task) => task.id === id);
+  const task = await prisma.task.findUnique({
+    where: {
+      id: id,
+    },
+  });
 
   if (!task) {
     throw new NotFoundError("User not found");
@@ -38,53 +48,77 @@ export function getTaskData(id: number) {
   return task;
 }
 
-export function createTaskData(payload: {
+export async function createTaskData(payload: {
   title: string;
   description: string;
-  status: string;
-  priority: number;
+  status: "PENDING";
 }) {
-  const newTask = {
-    id: tasks.length + 1,
-    title: payload.title,
-    description: payload.description,
-    status: payload.status,
-    priority: payload.priority,
-  };
-  tasks.push(newTask);
-  return newTask;
+  const createTask = await prisma.task.create({
+    data: {
+      title: payload.title,
+      description: payload.description,
+      status: payload.status,
+    },
+  });
+  // const newTask = {
+  //   id: tasks.length + 1,
+  //   title: payload.title,
+  //   description: payload.description,
+  //   status: payload.status,
+  //   priority: payload.priority,
+  // };
+  // tasks.push(newTask);
+  return createTask;
 }
 
-export function updateTaskData(
-  id: number,
+export async function updateTaskData(
+  id: string,
   payload: {
     title: string;
     description: string;
-    status: string;
+    status: "PENDING";
     priority: number;
   }
 ) {
-  const updatedTask = tasks.find((task) => task.id === id);
+  // const updatedTask = tasks.find((task) => task.id === id);
+
+  const updatedTask = await prisma.task.update({
+    where: { id: id },
+    data: {
+      title: payload.title,
+      description: payload.description,
+      status: payload.status,
+    },
+  });
 
   if (!updatedTask) {
     throw new NotFoundError("User not found");
   }
 
-  updatedTask.title = payload.title;
-  updatedTask.description = payload.description;
-  updatedTask.status = payload.status;
-  updatedTask.priority = payload.priority;
+  // updatedTask.title = payload.title;
+  // updatedTask.description = payload.description;
+  // updatedTask.status = payload.status;
+  // updatedTask.priority = payload.priority;
 
   return updatedTask;
 }
 
-export function deleteTaskData(id: number) {
-  const task = tasks.find((task) => task.id === id);
+export async function deleteTaskData(id: string) {
+  // const task = tasks.find((task) => task.id === id);
 
-  if (!task) {
+  const deletedTask = await prisma.task.update({
+    where: {
+      id: id,
+    },
+    data: {
+      deletedAt: new Date(),
+    },
+  });
+
+  if (!deletedTask) {
     throw new NotFoundError("User not found");
   }
-  tasks = tasks.filter((task) => task.id !== id);
+  // tasks = tasks.filter((task) => task.id !== id);
 
-  return task;
+  return deletedTask;
 }

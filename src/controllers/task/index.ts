@@ -26,7 +26,6 @@ export const createTaskSchema = {
     title: true,
     description: true,
     status: true,
-    priority: true,
   }),
 };
 
@@ -35,7 +34,6 @@ export const updateTaskSchema = {
     title: true,
     description: true,
     status: true,
-    priority: true,
   }),
 };
 
@@ -57,8 +55,9 @@ export const getRoute = createRoute({
   },
 });
 
-export const getTasksHandler: Handler = (c) => {
-  const tasks = getTasksData();
+export const getTasksHandler: Handler = async (c) => {
+  const tasks = await getTasksData();
+
   return c.json(tasks, 200);
 };
 
@@ -83,9 +82,10 @@ export const getSpecificRoute = createRoute({
   },
 });
 
-export const getTaskHandler: Handler = (c) => {
+export const getTaskHandler: Handler = async (c) => {
   const { id } = c.req.param();
-  const task = getTaskData(Number(id));
+
+  const task = await getTaskData(id);
   return c.json(task, 200);
 };
 
@@ -119,7 +119,7 @@ export const createTaskRoute = createRoute({
 export const createTaskHandler: Handler = async (c) => {
   const body = await c.req.json();
 
-  const taskCreated = createTaskData(body);
+  const taskCreated = await createTaskData(body);
 
   return c.json(taskCreated, 201);
 };
@@ -156,7 +156,7 @@ export const updateTaskHandler: Handler = async (c) => {
   const body = await c.req.json();
   const { id } = c.req.param();
 
-  const updatedTask = updateTaskData(Number(id), body);
+  const updatedTask = await updateTaskData(id, body);
 
   return c.json(updatedTask, 200);
 };
@@ -185,7 +185,7 @@ export const deleteSpecificRoute = createRoute({
 export const deleteTaskHandler: Handler = async (c) => {
   const { id } = c.req.param();
 
-  const deletedTask = deleteTaskData(Number(id));
+  const deletedTask = await deleteTaskData(id);
 
   return c.json(deletedTask, 200);
 };
