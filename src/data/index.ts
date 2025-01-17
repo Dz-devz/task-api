@@ -84,7 +84,7 @@ export function deleteTaskData(id: number) {
   if (!task) {
     throw new NotFoundError("User not found");
   }
-  tasks = tasks.filter((task) => task.id === id);
+  tasks = tasks.filter((task) => task.id !== id);
 
   return task;
 }
