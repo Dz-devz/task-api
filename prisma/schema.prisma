@@ -26,7 +26,7 @@ model Task {
 
 enum Status {
   PENDING
-  IN_PROGRESS
+  PROGRESSIG
   COMPLETED
   CANCELLED
 }
