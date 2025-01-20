@@ -3,8 +3,8 @@ import { TaskType } from "../../db/types";
 
 export const taskSchema = z.object({
   id: z.string().cuid(),
-  title: z.string().openapi({
-    example: "Sample Title",
+  task: z.string().openapi({
+    example: "Sample Task",
   }),
   description: z.string().optional().openapi({
     example: "Sample Description",

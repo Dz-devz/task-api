@@ -15,7 +15,7 @@ datasource db {
 
 model Task {
   id          String    @id @default(cuid())
-  title       String
+  task        String
   description String?
   status      Status    @default(PENDING)
   priority    Int

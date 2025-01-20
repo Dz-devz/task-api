@@ -23,7 +23,7 @@ export const taskParamsSchema = {
 
 export const createTaskSchema = {
   body: taskSchema.pick({
-    title: true,
+    task: true,
     description: true,
     priority: true,
     status: true,
@@ -32,7 +32,7 @@ export const createTaskSchema = {
 
 export const updateTaskSchema = {
   body: taskSchema.pick({
-    title: true,
+    task: true,
     description: true,
     priority: true,
     status: true,

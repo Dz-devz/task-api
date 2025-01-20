@@ -6,21 +6,21 @@ const prisma = new PrismaClient();
 let tasks = [
   {
     id: 1,
-    title: "Darwin Task",
+    task: "Darwin Task",
     description: "Coding",
     status: "PENDING",
     priority: 5,
   },
   {
     id: 2,
-    title: "Letsgo Task",
+    task: "Letsgo Task",
     description: "Fooding",
     status: "IN_PROGRESS",
     priority: 8,
   },
   {
     id: 3,
-    title: "Go Task",
+    task: "Go Task",
     description: "Testing",
     status: "COMPLETED",
     priority: 0,
@@ -49,14 +49,14 @@ export async function getTaskData(id: string) {
 }
 
 export async function createTaskData(payload: {
-  title: string;
+  task: string;
   description: string;
   status: "PENDING";
   priority: number;
 }) {
   const createTask = await prisma.task.create({
     data: {
-      title: payload.title,
+      task: payload.task,
       description: payload.description,
       priority: payload.priority,
       status: payload.status,
@@ -76,7 +76,7 @@ export async function createTaskData(payload: {
 export async function updateTaskData(
   id: string,
   payload: {
-    title: string;
+    task: string;
     description: string;
     status: "PENDING";
     priority: number;
@@ -87,7 +87,7 @@ export async function updateTaskData(
   const updatedTask = await prisma.task.update({
     where: { id: id },
     data: {
-      title: payload.title,
+      task: payload.task,
       description: payload.description,
       priority: payload.priority,
       status: payload.status,
