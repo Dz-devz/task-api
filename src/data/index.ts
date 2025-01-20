@@ -52,11 +52,13 @@ export async function createTaskData(payload: {
   title: string;
   description: string;
   status: "PENDING";
+  priority: number;
 }) {
   const createTask = await prisma.task.create({
     data: {
       title: payload.title,
       description: payload.description,
+      priority: payload.priority,
       status: payload.status,
     },
   });
@@ -87,6 +89,7 @@ export async function updateTaskData(
     data: {
       title: payload.title,
       description: payload.description,
+      priority: payload.priority,
       status: payload.status,
     },
   });

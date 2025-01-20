@@ -25,6 +25,7 @@ export const createTaskSchema = {
   body: taskSchema.pick({
     title: true,
     description: true,
+    priority: true,
     status: true,
   }),
 };
@@ -33,6 +34,7 @@ export const updateTaskSchema = {
   body: taskSchema.pick({
     title: true,
     description: true,
+    priority: true,
     status: true,
   }),
 };
