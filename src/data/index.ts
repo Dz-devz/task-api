@@ -15,7 +15,7 @@ let tasks = [
     id: 2,
     task: "Letsgo Task",
     description: "Fooding",
-    status: "IN_PROGRESS",
+    status: "PROCESSING",
     priority: 8,
   },
   {
