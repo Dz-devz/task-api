@@ -3,29 +3,29 @@ import { NotFoundError } from "../utils/errors";
 
 const prisma = new PrismaClient();
 
-let tasks = [
-  {
-    id: 1,
-    task: "Darwin Task",
-    description: "Coding",
-    status: "PENDING",
-    priority: 5,
-  },
-  {
-    id: 2,
-    task: "Letsgo Task",
-    description: "Fooding",
-    status: "PROCESSING",
-    priority: 8,
-  },
-  {
-    id: 3,
-    task: "Go Task",
-    description: "Testing",
-    status: "COMPLETED",
-    priority: 0,
-  },
-];
+// let tasks = [
+//   {
+//     id: 1,
+//     task: "Darwin Task",
+//     description: "Coding",
+//     status: "PENDING",
+//     priority: 5,
+//   },
+//   {
+//     id: 2,
+//     task: "Letsgo Task",
+//     description: "Fooding",
+//     status: "PROCESSING",
+//     priority: 8,
+//   },
+//   {
+//     id: 3,
+//     task: "Go Task",
+//     description: "Testing",
+//     status: "COMPLETED",
+//     priority: 0,
+//   },
+// ];
 
 export async function getTasksData() {
   const allTask = await prisma.task.findMany();
