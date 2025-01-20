@@ -1,6 +1,6 @@
 export const TaskType = {
   PENDING: "PENDING",
-  IN_PROGRESS: "IN PROGRESS",
+  IN_PROGRESS: "PROCESSING",
   COMPLETED: "COMPLETED",
   CANCELLED: "CANCELLED",
 } as const;
