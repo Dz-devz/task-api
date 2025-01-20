@@ -28,7 +28,11 @@ const prisma = new PrismaClient();
 // ];
 
 export async function getTasksData() {
-  const allTask = await prisma.task.findMany();
+  const allTask = await prisma.task.findMany({
+    where: {
+      deletedAt: null,
+    },
+  });
 
   return allTask;
 }
